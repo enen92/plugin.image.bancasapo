@@ -21,20 +21,12 @@ addon_id = 'plugin.image.bancadejornais'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addonfolder = selfAddon.getAddonInfo('path')
 artfolder = '/resources/icons/'
-
-
+siteurl = 'http://jornais.sapo.pt/'
 
 def CATEGORIES():
-	addDir('[B]Nacional[/B]','http://noticias.sapo.pt/banca/nacional/',1, addonfolder + artfolder + 'nacional.png')
-	addDir('[B]Desporto[/B]','http://noticias.sapo.pt/banca/desporto/',1, addonfolder + artfolder + 'desporto.png')
-	addDir('[B]Economia[/B]','http://noticias.sapo.pt/banca/economia/',1, addonfolder + artfolder + 'economia.png')
-	addDir('[B]Tecnologia[/B]','http://noticias.sapo.pt/banca/tecnologia/',1, addonfolder + artfolder + 'tecnologia.png')
-	addDir('[B]Local[/B]','http://noticias.sapo.pt/banca/local/',1, addonfolder + artfolder + 'local.png')
-	addDir('[B]Internacional[/B]','http://noticias.sapo.pt/banca/internacional/',1, addonfolder + artfolder + 'internacional.png')
-	addDir('[B]Revistas[/B]','http://noticias.sapo.pt/banca/revistas/',1, addonfolder + artfolder + 'revistas.png')
-		
-		
-		
+	link = abrir_url(siteurl)
+	match=re.findall('<a data-trackerlink=".+?" href="/(\w+)/">(\w+)</a></li>', link, re.DOTALL)
+	for section,title in match: addDir('[B]'+title+'[/B]',siteurl+section,1, addonfolder + artfolder + section+'.png')
 
 def jornal_list(url):
 	link = abrir_url(url)
@@ -44,11 +36,8 @@ def jornal_list(url):
 			thumbnail = urllib.unquote(thumbnail)
 			addLink('[B]' + titulo + '[/B]',thumbnail,thumbnail,totalitems)
 	xbmc.executebuiltin("Container.SetViewMode(500)")
-
-
  
 ############################################################################################################################
-
 def abrir_url(url):
 	req = urllib2.Request(url)
 	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
@@ -57,7 +46,6 @@ def abrir_url(url):
 	response.close()
 	return link
 
-                
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -71,13 +59,8 @@ def get_params():
                 for i in range(len(pairsofparams)):
                         splitparams={}
                         splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
+                        if (len(splitparams))==2: param[splitparams[0]]=splitparams[1]
         return param
-
-
-
 
 def addLink(name,url,iconimage,number_of_items):
 	ok=True
@@ -87,7 +70,6 @@ def addLink(name,url,iconimage,number_of_items):
 	ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,totalItems=number_of_items)
 	return ok
 
-
 def addDir(name,url,mode,iconimage):
 	u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
 	ok=True
@@ -96,39 +78,24 @@ def addDir(name,url,mode,iconimage):
 	liz.setInfo( type="Video", infoLabels={ "Title": name })
 	ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
 	return ok
-        
-              
+
 params=get_params()
 url=None
 name=None
 mode=None
 
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        mode=int(params["mode"])
-except:
-        pass
+try: url=urllib.unquote_plus(params["url"])
+except: pass
+try: name=urllib.unquote_plus(params["name"])
+except: pass
+try: mode=int(params["mode"])
+except: pass
 
 print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
 
-if mode==None or url==None or len(url)<1:
-        print ""
-        CATEGORIES()
-       
-       
-elif mode==1:
-        print ""
-        jornal_list(url)
-
-
+if mode==None or url==None or len(url)<1: CATEGORIES()
+elif mode==1: jornal_list(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
