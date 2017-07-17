@@ -17,8 +17,8 @@ logger = logging.getLogger(ADDON.getAddonInfo('id'))
 kodilogging.config()
 plugin = routing.Plugin()
 
-GLOBAL_FANART = os.path.join(ADDON.getAddonInfo('path'),'resources','fanart.jpg')
-GLOBAL_NEWSPAPPER_ICON = os.path.join(ADDON.getAddonInfo('path'),'resources','newspapericon.png')
+GLOBAL_FANART = os.path.join(ADDON.getAddonInfo('path'),'resources','images','fanart.jpg')
+GLOBAL_NEWSPAPPER_ICON = os.path.join(ADDON.getAddonInfo('path'),'resources','images','newspapericon.png')
 BANCA_SAPO_URL = "http://24.sapo.pt/jornais"
 
 
