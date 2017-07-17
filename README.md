@@ -1,4 +1,5 @@
-plugin.image.bancadejornais
-===========================
+# plugin.image.bancasapo
 
-Addon XBMC/Kodi para a banca sapo
+Daily portuguese newspapper covers in Kodi
+
+* Screenshots
