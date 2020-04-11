@@ -22,7 +22,6 @@ jobs:
     - name: Modify addon.xml for matrix
       run: |
         python3 tools/modify_addonxml_matrix.py
-        cat addon.xml
 
     - name: Kodi addon checker validation (matrix)
       id: kodi-addon-checker-krypton
