@@ -14,18 +14,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Extract kodi official repository target
-      id: extract_branch_pr
-      shell: bash
-      env:
-        ADDON_ID: ${{ github.event.repository.name }}
-      run: |
-        if [[ $ADDON_ID == plugin* ]]; then
-            echo "##[set-output name=repo;]repo-plugins"
-        else
-            echo "##[set-output name=repo;]repo-scripts"
-        fi
-
     - name: Kodi addon checker validation (krypton)
       id: kodi-addon-checker-krypton
       uses: xbmc/action-kodi-addon-checker@v1.2
@@ -48,7 +36,7 @@ jobs:
       id: kodi-addon-submitter
       uses: xbmc/action-kodi-addon-submitter@v1.2
       with: # Replace all the below values
-        kodi-repository: ${{ steps.extract_branch_pr.outputs.repo }}
+        kodi-repository: repo-plugins
         kodi-version: krypton
         addon-id: ${{ github.event.repository.name }}
         kodi-matrix: true

@@ -34,9 +34,9 @@ BANCA_SAPO_URL = "http://24.sapo.pt/jornais"
 
 @plugin.route('/')
 def categories():
-	if 1==1:
+	try:
 		req = requests.get(BANCA_SAPO_URL).text
-	else:
+	except:
 		raise_notification()
 
 	categories_regex = re.findall(r'<a href="/jornais/(.+?)" class="\[  \]">(.+?)</a>', req)
