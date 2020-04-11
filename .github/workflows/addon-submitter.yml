@@ -36,7 +36,7 @@ jobs:
         rewrite-for-matrix: false
 
     - name: Kodi addon checker validation (matrix)
-      id: kodi-addon-checker-krypton
+      id: kodi-addon-checker-matrix
       uses: xbmc/action-kodi-addon-checker@v1.2
       with:
         kodi-version: matrix
@@ -80,7 +80,7 @@ jobs:
         asset_content_type: application/zip
 
     - name: Upload Addon zip to github release (matrix)
-      id: upload-release-asset-krypton
+      id: upload-release-asset-matrix
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
