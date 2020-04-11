@@ -26,6 +26,24 @@ jobs:
             echo "##[set-output name=repo;]repo-scripts"
         fi
 
+    - name: Kodi addon checker validation (krypton)
+      id: kodi-addon-checker-krypton
+      uses: xbmc/action-kodi-addon-checker@v1.2
+      with:
+        kodi-version: krypton
+        is-pr: true
+        addon-id: ${{ github.event.repository.name }}
+        rewrite-for-matrix: false
+
+    - name: Kodi addon checker validation (matrix)
+      id: kodi-addon-checker-krypton
+      uses: xbmc/action-kodi-addon-checker@v1.2
+      with:
+        kodi-version: matrix
+        is-pr: true
+        addon-id: ${{ github.event.repository.name }}
+        rewrite-for-matrix: true
+
     - name: Generate distribution zip and submit to official kodi repository
       id: kodi-addon-submitter
       uses: xbmc/action-kodi-addon-submitter@v1.2

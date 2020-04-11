@@ -19,10 +19,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Modify addon.xml for matrix
-      run: |
-        python3 tools/modify_addonxml_matrix.py
-
     - name: Kodi addon checker validation (matrix)
       id: kodi-addon-checker-krypton
       uses: xbmc/action-kodi-addon-checker@v1.2
