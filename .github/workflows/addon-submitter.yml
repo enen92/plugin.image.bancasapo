@@ -14,15 +14,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Kodi addon checker validation (krypton)
-      id: kodi-addon-checker-krypton
-      uses: xbmc/action-kodi-addon-checker@v1.2
-      with:
-        kodi-version: krypton
-        is-pr: true
-        addon-id: ${{ github.event.repository.name }}
-        rewrite-for-matrix: false
-
     - name: Kodi addon checker validation (matrix)
       id: kodi-addon-checker-matrix
       uses: xbmc/action-kodi-addon-checker@v1.2
